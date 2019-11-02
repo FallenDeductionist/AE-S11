@@ -15,5 +15,12 @@ namespace Domain
 		public string studentName { get; set; }
 		[Required]
 		public string studentAddress { get; set; }
+
+		public string lastName { get; set; }
+		public int studentCode { get; set; }
+		public DateTime creationDate { get; set; }
+		public DateTime editDate { get; set; }
+		public bool state { get; set; }
+
 	}
 }

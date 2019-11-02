@@ -14,5 +14,10 @@ namespace MVCAjax.Models
 		public string Name { get; set; }
 		[Required]
 		public string Address { get; set; }
+		public string LastName { get; set; }
+		public int StudentCode { get; set; }
+		public DateTime CreationDate { get; set; }
+		public DateTime EditDate { get; set; }
+		public bool State { get; set; }
 	}
 }

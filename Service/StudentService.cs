@@ -15,7 +15,7 @@ namespace Service
 			List<Student> students = null;
 			using (var context = new SchoolContext())
 			{
-				students = context.Students.ToList();
+				students = context.Students.Where(s => s.state).ToList();
 			}
 			return students;
 		}
@@ -34,7 +34,17 @@ namespace Service
 		{
 			using (var context = new SchoolContext())
 			{
-				context.Students.Add(student);
+				var newStudent = new Student();
+
+				newStudent.studentName = student.studentName;
+				newStudent.studentAddress = student.studentAddress;
+				newStudent.lastName = student.lastName;
+				newStudent.studentCode = student.studentCode;
+				newStudent.creationDate = DateTime.Now;
+				newStudent.editDate = DateTime.Now;
+				newStudent.state = true;
+
+				context.Students.Add(newStudent);
 				context.SaveChanges();
 			}
 		}
@@ -43,21 +53,36 @@ namespace Service
 		{
 			using(var context = new SchoolContext())
 			{
-				var studentNew = context.Students.Find(ID);
+				var newStudent = context.Students.Find(ID);
 
-				studentNew.studentName = student.studentName;
-				studentNew.studentAddress = student.studentAddress;
+				newStudent.studentName = student.studentName;
+				newStudent.studentAddress = student.studentAddress;
+				newStudent.lastName = student.lastName;
+				newStudent.studentCode = student.studentCode;
+				newStudent.editDate = DateTime.Now;
 
 				context.SaveChanges();
 			}
+		}
+
+		public List<Student> SearchStudent(string keyword)
+		{
+			using (var context = new SchoolContext())
+			{
+				var data = context.Students.Where(f =>
+				f.studentName.StartsWith(keyword) || f.lastName.StartsWith(keyword) && f.state).ToList();
+				return data;
+			}
+			
 		}
 
 		public void Delete(int ID)
 		{
 			using ( var context = new SchoolContext())
 			{
-				var student = context.Students.Find(ID);
-				context.Students.Remove(student);
+				var newStudent = context.Students.Find(ID);
+				newStudent.state = false;
+				newStudent.editDate = DateTime.Now;
 				context.SaveChanges();
 			}
 		}
