@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{4D421AF6-67E5-4E00-974C-31B5AF1267EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{B1BC4298-07A1-4739-952B-D99BC2950A22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4D421AF6-67E5-4E00-974C-31B5AF1267EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D421AF6-67E5-4E00-974C-31B5AF1267EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D421AF6-67E5-4E00-974C-31B5AF1267EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1BC4298-07A1-4739-952B-D99BC2950A22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BC4298-07A1-4739-952B-D99BC2950A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BC4298-07A1-4739-952B-D99BC2950A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BC4298-07A1-4739-952B-D99BC2950A22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

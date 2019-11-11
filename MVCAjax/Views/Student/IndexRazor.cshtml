@@ -29,17 +29,17 @@
     </div><hr />
     <table id="tblStudent" class="table table-bordered table-striped table-responsive table-hover">
         <thead>
-
+        </thead>
+        <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <th align="left" class="productth">ID</th>
-                    <th align="left" class="productth">Student Name</th>
-                    <th align="left" class="productth">Student Address</th>
+                    <th align="left" class="productth">@item.studentID</th>
+                    <th align="left" class="productth">@item.studentName</th>
+                    <th align="left" class="productth">@item.studentAddress</th>
                 </tr>
             }
-        </thead>
-        <tbody></tbody>
+        </tbody>
     </table>
 </div>
 
