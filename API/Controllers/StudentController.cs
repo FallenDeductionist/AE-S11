@@ -25,9 +25,9 @@ namespace API.Controllers
 		public JsonResult<List<StudentModel>> GetAllStudents()
 		{
 			EntityMapper<Student, StudentModel> mapObj = new EntityMapper<Student, StudentModel>();
-			List<Student> prodList = Service.Get();
+			List<Student> studentList = Service.Get();
 			List<StudentModel> Students = new List<StudentModel>();
-			foreach (var item in prodList)
+			foreach (var item in studentList)
 			{
 				Students.Add(mapObj.Translate(item));
 			}
@@ -42,6 +42,20 @@ namespace API.Controllers
 			Students = mapObj.Translate(dalStudent);
 			return Json<StudentModel>(Students);
 		}
+
+		[HttpGet]
+		public JsonResult<List<StudentModel>> SearchStudent(string keyword)
+		{
+			EntityMapper<Student, StudentModel> mapObj = new EntityMapper<Student, StudentModel>();
+			List<Student> studentList = Service.SearchStudent(keyword);
+			List<StudentModel> Students = new List<StudentModel>();
+			foreach (var item in studentList)
+			{
+				Students.Add(mapObj.Translate(item));
+			}
+			return Json<List<StudentModel>>(Students);
+		}
+
 		[HttpPost]
 		public bool InsertStudent(StudentModel Student)
 		{
@@ -57,13 +71,13 @@ namespace API.Controllers
 			return status;
 		}
 		[HttpPost]
-		public bool UpdateStudent(StudentModel Student)
+		public bool UpdateStudent(StudentModel Student, int id)
 		{
 			bool status = false;
 			EntityMapper<StudentModel, Student> mapObj = new EntityMapper<StudentModel, Student>();
 			Student StudentObj = new Student();
 			StudentObj = mapObj.Translate(Student);
-			Service.Update(StudentObj, StudentObj.studentID);
+			Service.Update(StudentObj, id);
 			status = true;
 			return status;
 		}

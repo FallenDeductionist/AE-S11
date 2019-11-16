@@ -42,6 +42,101 @@ namespace MVCAjax.Proxy
 				};
 			}
 		}
+
+		public async Task<ResponseProxy<StudentModel>> GetByIdAsync(int id)
+		{
+			var client = new HttpClient();
+			var urlBase = "https://localhost:44301";
+			client.BaseAddress = new Uri(urlBase);
+
+			var url = string.Concat(urlBase, "/Api", "/Student", "/GetStudent/", id);
+			var response = client.GetAsync(url).Result;
+			if (response.StatusCode == HttpStatusCode.OK)
+			{
+				var result = await response.Content.ReadAsStringAsync();
+				var student = JsonConvert.DeserializeObject<List<StudentModel>>(result);
+				return new ResponseProxy<StudentModel>
+				{
+					Exitoso = true,
+					Codigo = (int)HttpStatusCode.OK,
+					Mensaje = "Exito",
+					listado = student
+				};
+			}
+			else
+			{
+				return new ResponseProxy<StudentModel>
+				{
+					Codigo = (int)response.StatusCode,
+					Mensaje = "Error"
+				};
+			}
+		}
+
+		public async Task<ResponseProxy<StudentModel>> SearchAsync(string keyword)
+		{
+			var client = new HttpClient();
+			var urlBase = "https://localhost:44301";
+			client.BaseAddress = new Uri(urlBase);
+
+			var url = string.Concat(urlBase, "/Api", "/Student", "/SearchStudent?keyword", keyword);
+			var response = client.GetAsync(url).Result;
+
+			if (response.StatusCode == HttpStatusCode.OK)
+			{
+				var result = await response.Content.ReadAsStringAsync();
+				var students = JsonConvert.DeserializeObject<List<StudentModel>>(result);
+				return new ResponseProxy<StudentModel>
+				{
+					Exitoso = true,
+					Codigo = (int)HttpStatusCode.OK,
+					Mensaje = "Exito",
+					listado = students
+				};
+			}
+			else
+			{
+				return new ResponseProxy<StudentModel>
+				{
+					Codigo = (int)response.StatusCode,
+					Mensaje = "Error"
+				};
+			}
+		}
+
+		public async Task<ResponseProxy<StudentModel>> UpdateAsync(int id, StudentModel model)
+		{
+			var request = JsonConvert.SerializeObject(model);
+			var content = new StringContent(request, Encoding.UTF8, "application/json");
+
+			var client = new HttpClient();
+			var urlBase = "https://localhost:44301";
+			client.BaseAddress = new Uri(urlBase);
+
+			var url = string.Concat(urlBase, "/Api", "/Student", "/UpdateStudent/", id);
+			var response = client.PostAsync(url, content).Result;
+
+			if (response.StatusCode == HttpStatusCode.OK)
+			{
+				var result = await response.Content.ReadAsStringAsync();
+				var student = JsonConvert.DeserializeObject<List<StudentModel>>(result);
+				return new ResponseProxy<StudentModel>
+				{
+					Exitoso = true,
+					Codigo = (int)HttpStatusCode.OK,
+					Mensaje = "Exito",
+					listado = student
+				};
+			}
+			else
+			{
+				return new ResponseProxy<StudentModel>
+				{
+					Codigo = (int)response.StatusCode,
+					Mensaje = "Error"
+				};
+			}
+		}
 		public async Task<ResponseProxy<StudentModel>> InsertAsync(StudentModel model)
 		{
 			var request = JsonConvert.SerializeObject(model);
@@ -69,6 +164,37 @@ namespace MVCAjax.Proxy
 				return new ResponseProxy<StudentModel>
 				{
 					Exitoso = false,
+					Codigo = (int)response.StatusCode,
+					Mensaje = "Error"
+				};
+			}
+		}
+
+		public async Task<ResponseProxy<StudentModel>> DeleteAsync(int id)
+		{
+			var client = new HttpClient();
+			var urlBase = "https://localhost:44301";
+			client.BaseAddress = new Uri(urlBase);
+
+			var url = string.Concat(urlBase, "/Api", "/Student", "/DeleteStudent/", id);
+			var response = client.DeleteAsync(url).Result;
+
+			if (response.StatusCode == HttpStatusCode.OK)
+			{
+				var result = await response.Content.ReadAsStringAsync();
+				var student = JsonConvert.DeserializeObject<List<StudentModel>>(result);
+				return new ResponseProxy<StudentModel>
+				{
+					Exitoso = true,
+					Codigo = (int)HttpStatusCode.OK,
+					Mensaje = "Exito",
+					listado = student
+				};
+			}
+			else
+			{
+				return new ResponseProxy<StudentModel>
+				{
 					Codigo = (int)response.StatusCode,
 					Mensaje = "Error"
 				};

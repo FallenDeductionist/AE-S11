@@ -36,15 +36,18 @@ namespace MVCAjax.Controllers
 			return Json(response.Result.listado, JsonRequestBehavior.AllowGet);
 		}
 
-		/*
 		public JsonResult getStudentById(int id)
 		{
-			return Json(service.GetById(id), JsonRequestBehavior.AllowGet);
+			var response = Task.Run(() => proxy.GetByIdAsync(id));
+
+			return Json(response.Result.listado, JsonRequestBehavior.AllowGet);
 		}
 
 		public JsonResult searchStudent(string keyword)
 		{
-			return Json(service.SearchStudent(keyword), JsonRequestBehavior.AllowGet);
+			var response = Task.Run(() => proxy.SearchAsync(keyword));
+
+			return Json(response.Result.listado, JsonRequestBehavior.AllowGet);
 		}
 
 		*/
@@ -57,22 +60,23 @@ namespace MVCAjax.Controllers
 			return Json(new { Message = message, JsonRequestBehavior.AllowGet });
 		}
 
-		/*
 		[HttpPost]
-		public ActionResult editStudent(Student std, int id)
+		public ActionResult editStudent(StudentModel std, int id)
 		{
-			service.Update(std, id);
-			string message = "SUCCESS";
+			// service.Update(std, id);
+			var response = Task.Run(() => proxy.UpdateAsync(id, std));
+			string message = response.Result.Mensaje;
 			return Json(new { Message = message, JsonRequestBehavior.AllowGet });
 		}
 
 		[HttpPost]
 		public ActionResult deleteStudent(int id)
 		{
-			service.Delete(id);
-			string message = "SUCCESS";
+			// service.Delete(id);
+			var response = Task.Run(() => proxy.DeleteAsync(id));
+			string message = response.Result.Mensaje;
 			return Json(new { Message = message, JsonRequestBehavior.AllowGet });
 		}
-		*/
+
 	}
 }
