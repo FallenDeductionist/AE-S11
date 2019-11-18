@@ -50,7 +50,7 @@ namespace MVCAjax.Controllers
 			return Json(response.Result.listado, JsonRequestBehavior.AllowGet);
 		}
 
-		*/
+		
 		[HttpPost]
 		public ActionResult createStudent(StudentModel std)
 		{
